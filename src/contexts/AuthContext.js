@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     const history = useHistory();
 
     useEffect(() => {
-        auth.onAuthStateChanged(() => {
+        auth.onAuthStateChanged((user) => {
             setUser(user);
             setLoading(false);
             if(user) history.push('/chats');
@@ -23,7 +23,8 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value = {value}>
-            {!loading && children}
+            {/* if not loading, shows children */}
+            {!loading && children}  
         </AuthContext.Provider>
     )
 }
