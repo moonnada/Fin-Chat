@@ -11,19 +11,21 @@ const Chats = () => {
     const [loading, setLoading] = useState(true);
 
     
-
     const handleLogout = async () => {
         await auth.signOut();
         history.push('/');
     }
 
+    // to call an image file on loading page
     const getFile = async (url) => {
         const response = await fetch(url);
         const data = await response.blob();
 
         return new File([data] , 'userPhoto.jpg', {type: 'image/jpeg'})
     }
+
     useEffect(() => {
+        // not login yet, need to visit the login page first
         if(!user){
             history.push('/');
             return;
@@ -60,11 +62,13 @@ const Chats = () => {
     }, [user, history]);
 
     if(!user || loading) return 'Loading...';
+
+    // Chat main page
     return (
         <div className="chats-page">
             <div className="nav-bar">
                 <div className="logo-tab">
-                    Unichat
+                    Fin Chat
                 </div>
                 <div onClick={handleLogout} className="logout-tab">
                     Logout
@@ -76,7 +80,6 @@ const Chats = () => {
                 projectID={process.env.REACT_APP_CHAT_ENGINE_ID}
                 userName={user.email}
                 userSecret={user.uid}
-
             />
         </div>
 
